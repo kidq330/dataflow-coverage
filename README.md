@@ -2,7 +2,7 @@
 The control flow graph visualisation plugin.
 
 ```bash
-frama-c -load-script cfg_print.ml test.c
+frama-c test.c -load-script cfg_print.ml -eva -then -cfg
 dot -Tpng cfg.dot > cfg.png
 open cfg.png
 ```
