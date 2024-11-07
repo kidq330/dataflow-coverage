@@ -32,9 +32,8 @@ class print_cfg out = object
     | _ -> Cil.SkipChildren
 
   method! vstmt_aux s =
-    let color = if Db.Value.is_computed () then
-        let state = Db.Value.get_stmt_state s  in
-        let reachable = Db.Value.is_reachable state in
+    let color = if Eva.Analysis.is_computed () then
+        let reachable = Eva.Results.is_reachable s in
         if reachable then "fillcolo=\"#CCFFCC\" style=filled"
         else "fillcolor=pink style=filled"
       else ""
@@ -74,4 +73,4 @@ let run () =
     Visitor.visitFramacFileSameGlobals (new print_cfg fmt) (Ast.get ());
     close_out chan
 
-let () = Db.Main.extend run
+let () = Boot.Main.extend run
